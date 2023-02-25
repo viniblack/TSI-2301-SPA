@@ -1,35 +1,67 @@
 import React from "react";
-import Noticia from "./components/new"
-function App() {
-  const [noticias, setNoticias] = React.useState([]);
 
-  function carregar() {
-    setNoticias([{
-      image: "https://picsum.photos/200/200?grayscale",
-      title: "Titulo 1",
-      text: "1 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-    },
-    {
-      image: "https://picsum.photos/200/200",
-      title: "Titulo 2",
-      text: "2 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-    }
-    ])
+function App() {
+  const [pokemon, setPokemon] = React.useState({});
+  const [count, setCount] = React.useState(1);
+
+  function Proximo() {
+    setCount(count + 1);
+    Carregar();
   }
 
-  return (
-    noticias.length >= 2 ?
-      <div className="container">
+  function Anterior() {
+    if (count >= 1) {
+      setCount(count - 1);
+    }
+  
+  }
 
-        <Noticia image={noticias[0].image} title={noticias[0].title} text={noticias[0].text} />
-        <Noticia image={noticias[1].image} title={noticias[1].title} text={noticias[1].text} />
-      </div>
-      :
-      <div className="container">
-        <button onClick={carregar}>Carregar noticias</button>
-        <div>Sem noticias</div>
-      </div>
+  function Carregar() {
+    console.log(count);
+    fetch(`https://pokeapi.co/api/v2/pokemon/${count}`)
+      .then((response) => response.json())
+      .then((data) => {
+        return setPokemon(data);
+      });
+  }
 
+  return pokemon.sprites ? (
+    <div className="container">
+      <div className="row">
+        <div className="col-5">
+          <img className="w-75" src={pokemon.sprites.front_default} />
+        </div>
+
+        <div className="col-5 d-flex align-items-center">
+          <div className="row">
+            <div className="col-5">
+              <h4>Nome</h4>
+              {pokemon.name}
+            </div>
+            <div className="col-5 ">
+              <h4>Tipo</h4>
+              {pokemon.types.map((data) => data.type.name)}
+            </div>
+            <div className="col-5 p-2">
+              <h4>Comprimento</h4>
+              {pokemon.height} Altura {pokemon.weight} Largura
+            </div>
+            <div className="col-5">
+              <h4>Habilidades</h4>
+              {pokemon.abilities.map((data) => (
+                <div> {data.ability.name}</div>
+              ))}
+            </div>
+            <button onClick={Anterior}>Anterior</button>
+            <button onClick={Proximo}>Proximo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div>
+      <button onClick={Proximo}>Carregar</button>
+    </div>
   );
 }
 
