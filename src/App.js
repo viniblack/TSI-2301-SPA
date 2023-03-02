@@ -1,4 +1,5 @@
 import React from "react";
+import Pokemon from "./components/poke";
 
 function App() {
   const [pokemon, setPokemon] = React.useState({});
@@ -12,8 +13,8 @@ function App() {
   function Anterior() {
     if (count >= 1) {
       setCount(count - 1);
+      Carregar();
     }
-  
   }
 
   function Carregar() {
@@ -27,40 +28,41 @@ function App() {
 
   return pokemon.sprites ? (
     <div className="container">
+      <Pokemon
+        image={pokemon.sprites.front_default}
+        name={pokemon.name}
+        type={pokemon.types}
+        height={pokemon.height}
+        weight={pokemon.weight}
+        abilities={pokemon.abilities}
+      />
       <div className="row">
-        <div className="col-5">
-          <img className="w-75" src={pokemon.sprites.front_default} />
-        </div>
-
-        <div className="col-5 d-flex align-items-center">
-          <div className="row">
-            <div className="col-5">
-              <h4>Nome</h4>
-              {pokemon.name}
-            </div>
-            <div className="col-5 ">
-              <h4>Tipo</h4>
-              {pokemon.types.map((data) => data.type.name)}
-            </div>
-            <div className="col-5 p-2">
-              <h4>Comprimento</h4>
-              {pokemon.height} Altura {pokemon.weight} Largura
-            </div>
-            <div className="col-5">
-              <h4>Habilidades</h4>
-              {pokemon.abilities.map((data) => (
-                <div> {data.ability.name}</div>
-              ))}
-            </div>
-            <button onClick={Anterior}>Anterior</button>
-            <button onClick={Proximo}>Proximo</button>
-          </div>
+        <div className="col-12 d-flex justify-content-center">
+          <button className="btn btn-danger mx-3" onClick={Anterior}>
+            Anterior
+          </button>
+          <button className="btn btn-success mx-3" onClick={Proximo}>
+            Proximo
+          </button>
         </div>
       </div>
     </div>
   ) : (
-    <div>
-      <button onClick={Proximo}>Carregar</button>
+    <div className="container ">
+      <div className="row">
+        <div className="col-12  d-flex flex-column align-items-center">
+          <h1>Pokédex</h1>
+          <p className="py-3 fs-3">
+            Clique em carregar para ver o primeiro pokémon da lista
+          </p>
+        </div>
+        <div className="col-12 d-flex flex-column align-items-center">
+          <img alt="pikachu correndo" className="p-3" src="https://media.tenor.com/uUNcnHwYJQEAAAAj/running-pikachu-transparent-snivee.gif" />
+          <button className="btn btn-success" onClick={Proximo}>
+            Carregar
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
