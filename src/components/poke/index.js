@@ -7,6 +7,7 @@ import Abilities from "./abilities.js";
 function Pokemon(props) {
   return (
     <div className="row">
+      {console.log(props)}
       <Image image={props.image} />
 
       <div className="col-5 d-flex align-items-center">
