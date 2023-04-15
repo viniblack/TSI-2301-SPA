@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import React from "react";
+import UserContext from "./UserContext";
+import RandomUser from "./components/RandomUser";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
+  const [randomUser, setRandomUser] = React.useState();
+
+  function Load() {
+    fetch(`https://randomuser.me/api`)
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data.results[0]);
+        setRandomUser(data.results[0]);
+      });
+  }
+
+  React.useEffect(() => {
+    Load();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={randomUser}>
+      <Routes>
+        <Route path="/">
+          <Route index element={<Home />} />
+        </Route>
+        <Route path="/random">
+          <Route index element={<RandomUser />} />
+        </Route>
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </UserContext.Provider>
   );
 }
 
