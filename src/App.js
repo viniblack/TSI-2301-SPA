@@ -3,6 +3,7 @@ import Home from "./components/Home";
 import React from "react";
 import UserContext from "./UserContext";
 import RandomUser from "./components/RandomUser";
+import Todo from "./components/Todo";
 import PageNotFound from "./components/PageNotFound";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path="/random">
           <Route index element={<RandomUser />} />
         </Route>
+        <Route path="/todo" element={<Todo />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </UserContext.Provider>
