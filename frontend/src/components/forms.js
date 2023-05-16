@@ -49,7 +49,7 @@ function Forms() {
                 placeholder="name@example.com"
                 onChange={(e) => setUser(e.target.value)}
               />
-              <label className="floatingInput">Email</label>
+              <label className="floatingInput">User</label>
             </div>
 
             <div className="form-floating m-3">
