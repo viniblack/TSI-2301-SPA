@@ -32,9 +32,9 @@ app.post("/login", (req, res) => {
   const users = db.collection("users").find({ usuario: usuario }).toArray();
 
   users
-    .then((arrayUser) => {
-      if (senha == arrayUser[0].senha) {
-        res.json({ usuario: arrayUser[0].usuario, senha: arrayUser[0].senha });
+    .then((result) => {
+      if (senha == result[0].senha) {
+        res.json({ usuario: result[0].usuario, senha: result[0].senha });
       } else {
         res.json({ erro: "Login e senha incorreto" });
       }
