@@ -20,9 +20,7 @@ export default function Edit() {
       });
   }
 
-  React.useEffect(() => {
-    Load();
-  }, []);
+  Load();
 
   const handleSubmit = (event) => {
     event.preventDefault();

@@ -19,9 +19,7 @@ function App() {
       });
   }
 
-  React.useEffect(() => {
-    Load();
-  }, []);
+  Load();
 
   return (
     <PilotoContext.Provider value={piloto}>
