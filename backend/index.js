@@ -62,6 +62,20 @@ app.get("/pilotos", (req, res) => {
   selectPilotos();
 });
 
+app.get("/editar/:id", (req, res) => {
+  async function selectPilotos(id) {
+    let respilotos = [];
+    const pilotos = await db
+      .collection("pilotos")
+      .find({ _id: new ObjectId(id) });
+    for await (let piloto of pilotos) {
+      respilotos.push(piloto);
+    }
+    res.json({ message: respilotos });
+  }
+  selectPilotos(req.params.id);
+});
+
 app.put("/editar/:id", (req, res) => {
   async function editar(id, body) {
     const pilotos = db.collection("pilotos");
