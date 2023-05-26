@@ -5,7 +5,6 @@ import PilotoContext from "./PilotoContext";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import Edit from "./components/Edit";
-import Delete from "./components/Delete";
 import PageNotFound from "./components/PageNotFound";
 
 function App() {
@@ -30,7 +29,6 @@ function App() {
         <Route path="/" index element={<Home />} />
         <Route path="/criar" element={<Register />} />
         <Route path="/editar/:id" element={<Edit />} />
-        <Route path="/deletar/:id" element={<Delete />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </PilotoContext.Provider>

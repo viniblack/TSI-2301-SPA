@@ -1,9 +1,15 @@
-import React, { useState } from "react";
-import { redirect, useParams } from "react-router-dom";
+import React from "react";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router";
 
-export default function Register() {
+export default function Edit() {
   const [piloto, setPiloto] = React.useState();
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/");
+  };
 
   function Load() {
     fetch(`http://localhost:3002/editar/${id}`)
@@ -34,7 +40,7 @@ export default function Register() {
         categoria: formData.get("categoria"),
       }),
     });
-    return <redirect to="/" />;
+    handleClick();
   };
 
   return (
@@ -69,9 +75,7 @@ export default function Register() {
           name="categoria"
           defaultValue={piloto ? piloto.categoria : ""}
         />
-        <button type="submit">
-          Enviar
-        </button>
+        <button type="submit">Enviar</button>
       </form>
     </div>
   );
