@@ -1,27 +1,9 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import TarefaContext from "../TarefaContext";
 import { Link } from "react-router-dom";
 
 export default function Home() {
   const tarefa = useContext(TarefaContext);
-  console.log(tarefa);
-
-  const handleSubmit = (event) => {
-    // event.preventDefault();
-    // const formData = new FormData(event.target);
-
-    fetch(`http://localhost:3002/atualizar/${tarefa._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nome: tarefa.nome,
-        status: !tarefa.status,
-      }),
-    });
-    console.log(event.target.id);
-  };
 
   return tarefa ? (
     <div>
@@ -35,7 +17,7 @@ export default function Home() {
             return (
               <>
                 <input
-                  onChange={handleSubmit}
+
                   id={tarefa._id}
                   type="checkbox"
                 ></input>{" "}
